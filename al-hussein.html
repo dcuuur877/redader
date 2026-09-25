@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدام الحسين (ع)</title>
+    <!-- ربط ملف الـ Manifest لدعم التثبيت والعمل أوفلاين -->
+    <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22%D8%AE%D8%AF%D8%A7%D9%85%20%D8%A7%D9%84%D8%AD%D8%B3%D9%8A%D9%86%20%28%D8%B9%29%22%2C%22short_name%22%3A%22%D8%AE%D8%AF%D8%A7%D9%85%20%D8%A7%D9%84%D8%AD%D8%B3%D9%8A%D9%86%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23080808%22%2C%22theme_color%22%3A%22%23990000%22%7D">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: rgba(22, 22, 22, 0.75);
+            --card-hover: rgba(31, 31, 31, 0.9);
+            --text-color: #e6e6e6;
+            --text-muted: #a0a0a0;
+            --primary-color: #990000;
+            --primary-hover: #b30000;
+            --border-color: rgba(212, 175, 55, 0.15);
+            --border-hover: rgba(212, 175, 55, 0.5);
+            --gold-accent: #d4af37;
+            --whatsapp-color: #25d366;
+            --whatsapp-hover: #20ba5a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: radial-gradient(circle at 50% 50%, #120303 0%, #080808 80%);
+        }
+
+        /* مؤشر حالة الاتصال بالإنترنت */
+        #network-status {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #b30000;
+            color: white;
+            text-align: center;
+            font-size: 0.85rem;
+            padding: 4px;
+            z-index: 9999;
+            display: none;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* واجهة البداية المزخرفة */
+        #hero-screen {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-outer-frame {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid var(--border-hover);
+            border-radius: 20px;
+            pointer-events: none;
+            background: rgba(10, 10, 10, 0.4);
+            box-shadow: inset 0 0 40px rgba(212, 175, 55, 0.08), 0 0 30px rgba(212, 175, 55, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+            z-index: 1;
+        }
+
+        .frame-corner {
+            color: var(--gold-accent);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .frame-top, .frame-bottom {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #hero-screen::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(153, 0, 0, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-top-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            z-index: 2;
+        }
+
+        .ornament-frame {
+            border: 1px solid var(--border-hover);
+            padding: 40px 60px;
+            border-radius: 16px;
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
+            margin-top: 50px;
+            margin-bottom: 35px;
+        }
+
+        .ornament-top, .ornament-bottom {
+            color: var(--gold-accent);
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            margin-bottom: 15px;
+        }
+
+        .hero-quote {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            line-height: 1.6;
+        }
+
+        .enter-btn {
+            background: linear-gradient(135deg, var(--primary-color), #660000);
+            color: white;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 14px 45px;
+            font-size: 1.2rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(153, 0, 0, 0.4);
+            z-index: 2;
+        }
+
+        .enter-btn:hover {
+            background: linear-gradient(135deg, var(--primary-hover), #800000);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold-accent);
+        }
+
+        /* التطبيق الرئيسي */
+        #app-screen {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+            animation: fadeIn 0.5s ease;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        header {
+            background-color: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.6rem;
+            color: var(--gold-accent);
+            font-weight: 700;
+        }
+
+        .home-icon-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.3s;
+        }
+
+        .home-icon-btn:hover {
+            color: var(--gold-accent);
+            border-color: var(--gold-accent);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .main-container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px 20px;
+            flex: 1;
+        }
+
+        .controls-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold-accent);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), #660000);
+            color: white;
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(153, 0, 0, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--gold-accent);
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            align-items: start;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            background-color: var(--card-hover);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .card-title-only {
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+            flex: 1;
+            word-break: break-word;
+            line-height: 1.6;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .action-icon-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .action-icon-btn:hover {
+            color: white;
+            background-color: var(--primary-color);
+            border-color: var(--gold-accent);
+        }
+
+        .action-icon-btn.fav-active {
+            color: #ff4d4d;
+            border-color: rgba(255, 77, 77, 0.4);
+            background: rgba(255, 77, 77, 0.1);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 50px;
+            font-size: 1.1rem;
+            grid-column: 1 / -1;
+            font-family: 'Amiri', serif;
+        }
+
+        /* الزر العائم (+) */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 999;
+        }
+
+        .fab-main-btn {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), #660000);
+            color: white;
+            border: 2px solid var(--gold-accent);
+            border-radius: 50%;
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(153, 0, 0, 0.5);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .fab-main-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .fab-menu {
+            position: absolute;
+            bottom: 75px;
+            left: 0;
+            background: #151515;
+            border: 1px solid var(--border-hover);
+            border-radius: 12px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            min-width: 180px;
+        }
+
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .fab-option-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            padding: 10px 14px;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fab-option-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold-accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: rgba(10, 10, 10, 0.9);
+            margin-top: auto;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        footer span {
+            color: var(--gold-accent);
+            font-weight: 600;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #121212;
+            border: 1px solid var(--border-hover);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7), 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .font-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .font-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .font-btn:hover {
+            border-color: var(--gold-accent);
+            color: var(--gold-accent);
+        }
+
+        .close-modal-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0 5px;
+            line-height: 1;
+            transition: 0.2s;
+        }
+        .close-modal-btn:hover {
+            color: var(--gold-accent);
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            flex: 1;
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            line-height: 2.3;
+            white-space: pre-wrap;
+            color: #f5f5f5;
+            padding: 15px 5px;
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-whatsapp-icon {
+            background-color: var(--whatsapp-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            margin-left: auto;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp-icon:hover {
+            background-color: var(--whatsapp-hover);
+            transform: scale(1.05);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--gold-accent);
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 160px;
+            font-family: 'Amiri', serif;
+            font-size: 1.15rem;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: var(--gold-accent);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
+        }
+
+        .btn-cancel {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.3s;
+        }
+        .btn-cancel:hover {
+            color: white;
+            border-color: white;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, var(--primary-color), #660000);
+            color: white;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 10px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-save:hover {
+            background: linear-gradient(135deg, var(--primary-hover), #800000);
+            border-color: var(--gold-accent);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #1a1a1a;
+            color: var(--gold-accent);
+            border: 1px solid var(--border-hover);
+            padding: 12px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            z-index: 2000;
+            font-size: 1rem;
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- تنبيه حالة الاتصال بالإنترنت -->
+    <div id="network-status">أنت تعمل الآن بدون اتصال بالإنترنت (Offline Mode)</div>
+
+    <!-- واجهة البداية المزخرفة مع الإطار -->
+    <div id="hero-screen">
+        <div class="hero-outer-frame">
+            <div class="frame-top">
+                <span class="frame-corner">❖</span>
+                <span class="frame-corner">❖</span>
+            </div>
+            <div class="frame-bottom">
+                <span class="frame-corner">❖</span>
+                <span class="frame-corner">❖</span>
+            </div>
+        </div>
+
+        <div class="hero-top-title">السَّلَامُ عَلَى أَهْلِ بَيْتِ النُّبُوَّةِ (ع)</div>
+        <div class="ornament-frame">
+            <div class="ornament-top">❖ ❖ ❖</div>
+            <div class="hero-quote">"كُلُّ أَرْضِ كَرْبَلَاءَ وَكُلُّ يَوْمٍ عَاشُورَاءُ"</div>
+            <div class="ornament-bottom">❖ ❖ ❖</div>
+        </div>
+        <button class="enter-btn" onclick="enterApp()">دخول إلى موقع خدام الحسين (ع)</button>
+    </div>
+
+    <!-- واجهة التطبيق الرئيسي -->
+    <div id="app-screen">
+        <header>
+            <div class="header-title">خدام الحسين (ع)</div>
+            <button class="home-icon-btn" onclick="goHome()">الرئيسية</button>
+        </header>
+
+        <div class="main-container">
+            <div class="controls-bar">
+                <input type="text" id="searchInput" class="search-input" placeholder="ابحث في العناوين أو النصوص..." oninput="handleSearch()">
+            </div>
+
+            <!-- أزرار التبويبات (ديناميكية تتضمن الأقسام المخصصة) -->
+            <div class="tabs-nav" id="tabsNav">
+                <button class="tab-btn active" onclick="switchTab('poems', event)">القصائد الحسينية</button>
+                <button class="tab-btn" onclick="switchTab('lament', event)">النعي</button>
+                <button class="tab-btn" onclick="switchTab('abothiat', event)">الأبوذيات</button>
+                <!-- الأقسام المخصصة تظهر هنا تلقائياً -->
+                <div id="customTabsContainer" style="display: flex; gap: 10px;"></div>
+                <button class="tab-btn" onclick="switchTab('favorites', event)">المفضلة</button>
+                <button class="tab-btn" onclick="switchTab('trash', event)">سلة المحذوفات</button>
+            </div>
+
+            <div id="poems" class="content-section active">
+                <div class="cards-grid" id="poemsList"></div>
+            </div>
+            <div id="lament" class="content-section">
+                <div class="cards-grid" id="lamentList"></div>
+            </div>
+            <div id="abothiat" class="content-section">
+                <div class="cards-grid" id="abothiatList"></div>
+            </div>
+            <!-- حاويات الأقسام المخصصة ستضاف هنا برمجيًا -->
+            <div id="customSectionsContainer"></div>
+
+            <div id="favorites" class="content-section">
+                <div class="cards-grid" id="favoritesList"></div>
+            </div>
+            <div id="trash" class="content-section">
+                <div class="cards-grid" id="trashList"></div>
+            </div>
+        </div>
+
+        <!-- الزر العائم (+) للإضافة السريعة -->
+        <div class="fab-container">
+            <div class="fab-menu" id="fabMenu">
+                <button class="fab-option-btn" onclick="openFormModal(); toggleFabMenu();">📄 إضافة نص جديد</button>
+                <button class="fab-option-btn" onclick="openNewCategoryModal(); toggleFabMenu();">📁 إضافة قسم جديد</button>
+            </div>
+            <button class="fab-main-btn" onclick="toggleFabMenu()">+</button>
+        </div>
+
+        <footer>
+            جميع الحقوق محفوظة لموقع خدام الحسين (ع) &copy; 2026 | تصميم وتنفيذ <span>بخدمة العترة الطاهرة</span>
+        </footer>
+    </div>
+
+    <!-- نافذة قراءة النص الكامل -->
+    <div class="modal-overlay" id="readModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <div class="modal-title" id="readModalTitle">عنوان النص</div>
+                    <div class="font-controls">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">حجم الخط:</span>
+                        <button class="font-btn" onclick="changeFontSize(2)">+</button>
+                        <button class="font-btn" onclick="changeFontSize(-2)">-</button>
+                    </div>
+                </div>
+                <button class="close-modal-btn" onclick="closeReadModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="readModalBody"></div>
+            <div class="modal-footer" id="readModalFooter">
+                <button class="btn-whatsapp-icon" id="readModalWhatsappBtn" title="مشاركة عبر واتساب">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448c-.63.344-6.325 1.55-6.325 1.55zm12.923-3.673c5.385 0 9.774-4.388 9.776-9.774.001-5.387-4.385-9.777-9.775-9.778-5.388 0-9.777 4.388-9.779 9.776-.001 1.722.46 3.407 1.336 4.887l-.946 3.455 3.535-.928c1.455.793 3.119 1.21 4.814 1.211zm5.372-7.373c-.295-.148-1.747-.862-2.018-.961-.271-.099-.469-.148-.667.149-.197.297-.768.961-.941 1.159-.173.198-.346.222-.641.074-.295-.148-1.244-.458-2.37-1.462-.876-.781-1.467-1.744-1.639-2.041-.173-.297-.018-.458.13-.605.134-.133.295-.346.443-.519.148-.173.198-.296.296-.493.098-.198.05-.371-.025-.519-.075-.148-.667-1.606-.913-2.201-.241-.579-.487-.5-.667-.51-.173-.008-.37-.009-.568-.009-.197 0-.518.074-.79.37-.271.297-1.038 1.015-1.038 2.476 0 1.461 1.063 2.872 1.21 3.07.148.198 2.091 3.193 5.067 4.475.707.305 1.258.488 1.687.625.711.228 1.359.196 1.871.119.572-.085 1.747-.714 1.994-1.403.247-.688.247-1.278.173-1.403-.074-.125-.271-.198-.566-.346z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة وتعديل محتوى -->
+    <div class="modal-overlay" id="formModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="formModalTitle">إضافة محتوى جديد</div>
+                <button class="close-modal-btn" onclick="closeFormModal()">&times;</button>
+            </div>
+            <input type="hidden" id="itemId">
+            
+            <div class="form-group">
+                <label class="form-label">القسم</label>
+                <select id="itemCategory" class="form-select">
+                    <!-- تتعبأ ديناميكياً لتشمل الأقسام المخصصة -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">العنوان / الرادود / المناسبة</label>
+                <input type="text" id="itemTitle" class="form-input" placeholder="مثال: يا ليلة العاشر...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">محاذاة النص</label>
+                <select id="itemAlign" class="form-select">
+                    <option value="right">يمين (افتراضي)</option>
+                    <option value="center">توسيط (مناسب للشعر)</option>
+                    <option value="justify">ضبط كامل</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">النص أو الأبيات الكاملة</label>
+                <textarea id="itemText" class="form-textarea" placeholder="اكتب أو الصق النص هنا..."></textarea>
+            </div>
+
+            <div class="modal-footer" style="border:none; padding:0; margin:0;">
+                <button class="btn-cancel" onclick="closeFormModal()">إلغاء</button>
+                <button class="btn-save" onclick="saveItem()">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إنشاء قسم جديد -->
+    <div class="modal-overlay" id="newCategoryModal">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <div class="modal-title">إضافة قسم جديد</div>
+                <button class="close-modal-btn" onclick="closeNewCategoryModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">اسم القسم الجديد</label>
+                <input type="text" id="newCategoryName" class="form-input" placeholder="مثال: محاضرات، لطميات حماسية...">
+            </div>
+            <div class="form-footer" style="border:none; padding:0; margin:0; display:flex; justify-content:flex-end; gap:12px;">
+                <button class="btn-cancel" onclick="closeNewCategoryModal()">إلغاء</button>
+                <button class="btn-save" onclick="saveNewCategory()">إنشاء القسم</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">تمت العملية بنجاح</div>
+
+    <script>
+        // تسجيل Service Worker للعمل أوفلاين
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                self.addEventListener('install', (e) => {
+                    e.waitUntil(
+                        caches.open('husseini-cache-v1').then((cache) => {
+                            return cache.addAll(['./', './index.html']);
+                        })
+                    );
+                });
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(
+                        caches.match(e.request).then((response) => {
+                            return response || fetch(e.request);
+                        })
+                    );
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'text/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).catch(err => console.log('SW registration failed:', err));
+        }
+
+        // مراقبة حالة الاتصال بالإنترنت
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        function updateOnlineStatus() {
+            const statusEl = document.getElementById('network-status');
+            if (!navigator.onLine) {
+                statusEl.style.display = 'block';
+            } else {
+                statusEl.style.display = 'none';
+            }
+        }
+        updateOnlineStatus();
+
+        let libraryData = JSON.parse(localStorage.getItem('husseini_library')) || [];
+        let trashData = JSON.parse(localStorage.getItem('husseini_trash')) || [];
+        let customCategories = JSON.parse(localStorage.getItem('husseini_custom_categories')) || [];
+
+        let currentActiveTab = 'poems';
+        let currentFontSize = 1.3;
+
+        function enterApp() {
+            document.getElementById('hero-screen').style.display = 'none';
+            document.getElementById('app-screen').style.display = 'flex';
+            renderAll();
+        }
+
+        function goHome() {
+            document.getElementById('app-screen').style.display = 'none';
+            document.getElementById('hero-screen').style.display = 'flex';
+        }
+
+        function toggleFabMenu() {
+            const menu = document.getElementById('fabMenu');
+            menu.classList.toggle('show');
+        }
+
+        function switchTab(tabId, event) {
+            currentActiveTab = tabId;
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tabs-nav .tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            const targetSec = document.getElementById(tabId);
+            if (targetSec) targetSec.classList.add('active');
+            if(event && event.target) {
+                event.target.classList.add('active');
+            }
+            renderAll();
+        }
+
+        function saveData() {
+            localStorage.setItem('husseini_library', JSON.stringify(libraryData));
+            localStorage.setItem('husseini_trash', JSON.stringify(trashData));
+            localStorage.setItem('husseini_custom_categories', JSON.stringify(customCategories));
+        }
+
+        function renderAll() {
+            renderDynamicNavAndSections();
+            renderSection('poems', 'poemsList');
+            renderSection('lament', 'lamentList');
+            renderSection('abothiat', 'abothiatList');
+            
+            customCategories.forEach(cat => {
+                renderSection(cat.id, `catList_${cat.id}`);
+            });
+
+            renderFavorites();
+            renderTrash();
+            updateCategoryDropdown();
+            handleSearch();
+        }
+
+        function renderDynamicNavAndSections() {
+            const customTabsContainer = document.getElementById('customTabsContainer');
+            const customSectionsContainer = document.getElementById('customSectionsContainer');
+
+            customTabsContainer.innerHTML = customCategories.map(cat => `
+                <button class="tab-btn ${currentActiveTab === cat.id ? 'active' : ''}" onclick="switchTab('${cat.id}', event)">
+                    ${escapeHTML(cat.name)}
+                </button>
+            `).join('');
+
+            customSectionsContainer.innerHTML = customCategories.map(cat => `
+                <div id="${cat.id}" class="content-section ${currentActiveTab === cat.id ? 'active' : ''}">
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+                        <button class="action-icon-btn" onclick="deleteCategory('${cat.id}')" title="حذف القسم" style="width: auto; padding: 0 10px; font-size: 0.85rem; color: #ff6b6b;">حذف هذا القسم</button>
+                    </div>
+                    <div class="cards-grid" id="catList_${cat.id}"></div>
+                </div>
+            `).join('');
+        }
+
+        function updateCategoryDropdown() {
+            const select = document.getElementById('itemCategory');
+            let options = `
+                <option value="poems">قصيدة حسينية</option>
+                <option value="lament">نعي</option>
+                <option value="abothiat">أبوذية</option>
+            `;
+            customCategories.forEach(cat => {
+                options += `<option value="${cat.id}">${escapeHTML(cat.name)}</option>`;
+            });
+            select.innerHTML = options;
+        }
+
+        function openNewCategoryModal() {
+            document.getElementById('newCategoryName').value = '';
+            document.getElementById('newCategoryModal').style.display = 'flex';
+        }
+
+        function closeNewCategoryModal() {
+            document.getElementById('newCategoryModal').style.display = 'none';
+        }
+
+        function saveNewCategory() {
+            const name = document.getElementById('newCategoryName').value.trim();
+            if (!name) {
+                showToast('يرجى إدخال اسم القسم');
+                return;
+            }
+            const id = 'cat_' + Date.now();
+            customCategories.push({ id, name });
+            saveData();
+            closeNewCategoryModal();
+            switchTab(id);
+            showToast('تم إنشاء القسم بنجاح');
+        }
+
+        function deleteCategory(catId) {
+            if (confirm('هل أنت متأكد من حذف هذا القسم؟ سيتم حذف جميع النصوص الموجودة داخله نهائياً.')) {
+                customCategories = customCategories.filter(c => c.id !== catId);
+                libraryData = libraryData.filter(item => item.category !== catId);
+                saveData();
+                switchTab('poems');
+                showToast('تم حذف القسم بنجاح');
+            }
+        }
+
+        function renderSection(category, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const items = libraryData.filter(item => item.category === category);
+            
+            if (items.length === 0) {
+                container.innerHTML = `<div class="empty-state">لا توجد عناصر مضافة في هذا القسم حالياً</div>`;
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="card" onclick="openReadModal('${item.id}')">
+                    <div class="card-title-only">${escapeHTML(item.title)}</div>
+                    <div class="card-actions" onclick="event.stopPropagation()">
+                        <button class="action-icon-btn ${item.isFavorite ? 'fav-active' : ''}" onclick="toggleFavorite('${item.id}')" title="المفضلة">❤️</button>
+                        <button class="action-icon-btn" onclick="openEditModal('${item.id}')" title="تعديل">✏️</button>
+                        <button class="action-icon-btn" onclick="moveToTrash('${item.id}')" title="حذف إلى سلة المحذوفات">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFavorites() {
+            const container = document.getElementById('favoritesList');
+            const items = libraryData.filter(item => item.isFavorite);
+
+            if (items.length === 0) {
+                container.innerHTML = `<div class="empty-state">لا توجد عناصر في المفضلة حالياً</div>`;
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="card" onclick="openReadModal('${item.id}')">
+                    <div class="card-title-only">${escapeHTML(item.title)}</div>
+                    <div class="card-actions" onclick="event.stopPropagation()">
+                        <button class="action-icon-btn fav-active" onclick="toggleFavorite('${item.id}')" title="إزالة من المفضلة">❤️</button>
+                        <button class="action-icon-btn" onclick="openEditModal('${item.id}')" title="تعديل">✏️</button>
+                        <button class="action-icon-btn" onclick="moveToTrash('${item.id}')" title="حذف">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTrash() {
+            const container = document.getElementById('trashList');
+            
+            if (trashData.length === 0) {
+                container.innerHTML = `<div class="empty-state">سلة المحذوفات فارغة</div>`;
+                return;
+            }
+
+            container.innerHTML = trashData.map(item => `
+                <div class="card" style="cursor: default;">
+                    <div class="card-title-only">${escapeHTML(item.title)}</div>
+                    <div class="card-actions">
+                        <button class="action-icon-btn" onclick="restoreFromTrash('${item.id}')" title="استعادة">♻️</button>
+                        <button class="action-icon-btn" onclick="deleteForever('${item.id}')" title="حذف نهائي">❌</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openFormModal(editId = null) {
+            document.getElementById('itemId').value = '';
+            document.getElementById('itemTitle').value = '';
+            document.getElementById('itemText').value = '';
+            document.getElementById('itemAlign').value = 'right';
+
+            if (editId) {
+                document.getElementById('formModalTitle').innerText = 'تعديل المحتوى';
+                const item = libraryData.find(i => i.id === editId);
+                if (item) {
+                    document.getElementById('itemId').value = item.id;
+                    document.getElementById('itemCategory').value = item.category;
+                    document.getElementById('itemTitle').value = item.title;
+                    document.getElementById('itemText').value = item.text;
+                    if(item.align) document.getElementById('itemAlign').value = item.align;
+                }
+            } else {
+                document.getElementById('formModalTitle').innerText = 'إضافة محتوى جديد';
+                document.getElementById('itemCategory').value = currentActiveTab === 'favorites' || currentActiveTab === 'trash' ? 'poems' : currentActiveTab;
+            }
+
+            document.getElementById('formModal').style.display = 'flex';
+        }
+
+        function closeFormModal() {
+            document.getElementById('formModal').style.display = 'none';
+        }
+
+        function openEditModal(id) {
+            openFormModal(id);
+        }
+
+        function saveItem() {
+            const id = document.getElementById('itemId').value;
+            const category = document.getElementById('itemCategory').value;
+            const title = document.getElementById('itemTitle').value.trim();
+            const text = document.getElementById('itemText').value.trim();
+            const align = document.getElementById('itemAlign').value;
+
+            if (!title || !text) {
+                showToast('يرجى ملء الحقول المطلوبة');
+                return;
+            }
+
+            if (id) {
+                const item = libraryData.find(i => i.id === id);
+                if (item) {
+                    item.category = category;
+                    item.title = title;
+                    item.text = text;
+                    item.align = align;
+                }
+                showToast('تم التعديل بنجاح');
+            } else {
+                const newItem = {
+                    id: 'item_' + Date.now(),
+                    category,
+                    title,
+                    text,
+                    align,
+                    isFavorite: false
+                };
+                libraryData.push(newItem);
+                showToast('تمت الإضافة بنجاح');
+            }
+
+            saveData();
+            closeFormModal();
+            renderAll();
+        }
+
+        function toggleFavorite(id) {
+            const item = libraryData.find(i => i.id === id);
+            if (item) {
+                item.isFavorite = !item.isFavorite;
+                saveData();
+                renderAll();
+                showToast(item.isFavorite ? 'تمت الإضافة إلى المفضلة' : 'تمت الإزالة من المفضلة');
+            }
+        }
+
+        function moveToTrash(id) {
+            const index = libraryData.findIndex(i => i.id === id);
+            if (index !== -1) {
+                const item = libraryData.splice(index, 1)[0];
+                trashData.push(item);
+                saveData();
+                renderAll();
+                showToast('تم النقل إلى سلة المحذوفات');
+            }
+        }
+
+        function restoreFromTrash(id) {
+            const index = trashData.findIndex(i => i.id === id);
+            if (index !== -1) {
+                const item = trashData.splice(index, 1)[0];
+                libraryData.push(item);
+                saveData();
+                renderAll();
+                showToast('تمت الاستعادة بنجاح');
+            }
+        }
+
+        function deleteForever(id) {
+            if (confirm('هل أنت متأكد من الحذف النهائي؟ لا يمكن التراجع عن هذه الخطوة.')) {
+                trashData = trashData.filter(i => i.id !== id);
+                saveData();
+                renderAll();
+                showToast('تم الحذف بشكل نهائي');
+            }
+        }
+
+        function openReadModal(id) {
+            const item = libraryData.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('readModalTitle').innerText = item.title;
+            const bodyEl = document.getElementById('readModalBody');
+            bodyEl.innerText = item.text;
+            bodyEl.style.textAlign = item.align || 'right';
+            
+            currentFontSize = 1.3;
+            bodyEl.style.fontSize = currentFontSize + 'rem';
+
+            const whatsappBtn = document.getElementById('readModalWhatsappBtn');
+            whatsappBtn.onclick = function() {
+                const shareText = `*${item.title}*\n\n${item.text}\n\n[موقع خدام الحسين (ع)]`;
+                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+                window.open(whatsappUrl, '_blank');
+            };
+
+            document.getElementById('readModal').style.display = 'flex';
+        }
+
+        function closeReadModal() {
+            document.getElementById('readModal').style.display = 'none';
+        }
+
+        function changeFontSize(delta) {
+            currentFontSize += delta * 0.1;
+            if (currentFontSize < 0.9) currentFontSize = 0.9;
+            if (currentFontSize > 2.2) currentFontSize = 2.2;
+            document.getElementById('readModalBody').style.fontSize = currentFontSize + 'rem';
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (!query) return;
+
+            const sections = ['poems', 'lament', 'abothiat', 'favorites'];
+            customCategories.forEach(cat => sections.push(cat.id));
+
+            sections.forEach(secId => {
+                const container = document.getElementById(secId === 'favorites' ? 'favoritesList' : (secId.startsWith('cat_') ? `catList_${secId}` : secId + 'List'));
+                if (!container) return;
+
+                const cards = container.getElementsByClassName('card');
+                for (let card of cards) {
+                    const titleText = card.innerText.toLowerCase();
+                    if (titleText.includes(query)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+    </script>
+</body>
+</html>
